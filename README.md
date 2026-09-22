@@ -13,6 +13,12 @@ A Vite and TypeScript starter for Forma Site Design extensions with native Autod
 
 ## Use this template
 
+Without GitHub, scaffold the same project from a terminal:
+
+```sh
+npm create forma-extension@latest my-extension
+```
+
 Click [**Use this template → Create a new repository**](https://github.com/sharafutdinovdi/autodesk-forma-extension-template/generate), then clone your repository and open its directory.
 Use Node 20+ and npm. Run:
 
