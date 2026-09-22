@@ -66,13 +66,13 @@ The screenshot uses synthetic data at 440 CSS px and device scale 2.
 
 ## What you get
 
-- Vite, strict TypeScript and a lockfile. SDK **0.96.0** is the only direct runtime npm dependency.
+- Vite, strict TypeScript and a lockfile. Runtime dependencies are `forma-extension-kit` and SDK **0.96.0**, retained directly to satisfy the kit's peer dependency.
 - Autodesk [base.css](https://app.autodeskforma.eu/design-system/v2/forma/styles/base.css), Artifakt type and CDN Weave tabs, select, primary button and inline error banner. No Weave npm package.
 - Local 4/8/16 px spacing, 24 px controls and 11/12 px type roles, accounting for the Design System's 10 px root.
 - Two tabs, a metric row, a working building-scope select and a locale-safe decimal input. The example limit demonstrates input only; it does not filter buildings.
 - Compact right-panel and full floating layouts. Each view reads independently; select Refresh after proposal edits. There is no shared mutable state or overlay in this starter.
-- `src/forma.ts`: persisted proposal reads, singular `building` and `site_limit` paths, deduplicated building counts and base-group classification.
-- An on-demand `readFootprint(path, snapshot)` adapter: graph and floor representations → direct context footprint → complete child footprints → XY triangles → last-resort direct native footprint. It checks the revision and retains failed-provider diagnostics.
+- Host adapters from [`forma-extension-kit`](https://www.npmjs.com/package/forma-extension-kit) ([repository](https://github.com/sharafutdinovdi/forma-extension-kit)): persisted proposal reads, singular `building` and `site_limit` paths, deduplicated building counts and base-group classification. `src/host.ts` selects fixture data or kit reads and prepares the proposal summary.
+- The kit's on-demand `readFootprint(path, snapshot)` adapter: graph and floor representations → direct footprint → complete child footprints → XY triangles → final direct-footprint retry. It checks the revision and retains failed-provider diagnostics.
 - Ready, loading, actionable empty and retryable error states. Use `?fixture=1&state=empty`, `state=loading` or `state=error`; Retry/Refresh returns the fixture to ready.
 - A clean-tree rename script, MIT licence, contribution/security guidance, issue/PR templates, Dependabot and CI for Node 20/22.
 
@@ -93,6 +93,8 @@ Motion: no signature effect or custom transitions/keyframes; only native Weave s
 The app adds no movement to suppress under `prefers-reduced-motion`. The CDN's native tab transitions may remain; their behavior is Autodesk-owned.
 
 ## Gotchas the template already handles
+
+`forma-extension-kit` handles the adapter and decimal gotchas below; the template supplies the input controls and keeps panel state and overlay ownership explicit.
 
 - Locale decimals: editable numbers use text, `inputmode="decimal"` and ungrouped `Intl.NumberFormat("en-US")`; both `.` and `,` are accepted.
 - Singular category: request `building`, not `buildings`; site limits use `site_limit`.
