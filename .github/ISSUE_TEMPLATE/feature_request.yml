@@ -1,0 +1,17 @@
+name: Feature request
+description: Suggest a small improvement to the extension starter.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What extension task is difficult with the current template?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Include alternatives and any verified Forma API references.
+    validations:
+      required: true
